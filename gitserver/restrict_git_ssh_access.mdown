@@ -1,0 +1,16 @@
+# Restrict git user to only push and pull Git repositories
+_Source http://git-scm.com/book/en/Git-on-the-Server-Setting-Up-the-Server_
+
+Modify the shell assigned to user git:
+
+    $ sudo vim /etc/passwd
+
+At the bottom, locate the line:
+
+    git:x:1000:1000::/home/git:/bin/bash
+
+Replace <code>/bin/bash</code> with <code>/usr/bin/git-shell</code>:
+
+    git:x:1000:1000::/home/git:/usr/bin/git-shell
+
+

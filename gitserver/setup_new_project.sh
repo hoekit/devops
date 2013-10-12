@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-echo Initialize bare repository for project: $1
+# Request project name
+read -p "Enter project name: " PRJ
 
-# TODO: No error checking for undefined arguments
-sudo -u git mkdir -p /opt/git/$1.git
-pushd /opt/git/$1.git && sudo -u git git init --bare
+# Create git repository
+sudo -u git mkdir -p /opt/git/$PRJ.git
+
+# Initialize git repository
+pushd /opt/git/$PRJ.git && sudo -u git git init --bare
 popd
-echo done

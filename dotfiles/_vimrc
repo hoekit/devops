@@ -1,0 +1,90 @@
+
+:set nocp
+
+:set nohls is ic
+
+" Automatically change working directory to the current buffer
+" See: http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+set autochdir
+
+" UTF-8 encoding
+:set encoding=utf-8
+
+" GUI
+:colorscheme desert
+:set guifont=Courier\ New
+:set guioptions-=T	" Remove toolbar
+:set guioptions-=m	" Remove menu bar
+
+" Set VIM position & size on screen
+:winpos 666 0
+" :set lines=46 columns=185
+:set lines=46 columns=91
+
+" Set tab stops and indenting
+:set tabstop=4
+:set shiftwidth=4
+:set autoindent smartindent
+
+" Make backspace work as expected after A[ppend]
+:set backspace=2
+
+" Enable syntax highlighting
+:syntax enable
+au BufNewFile,BufRead *.cgi		setf perl
+
+" Folding options
+":let fold_perl=1
+":set foldmethod=syntax
+:set foldmethod=manual
+
+" Show line numbers
+:set number
+
+" Personalize the status line
+:set statusline=%f%m%r%h%w\ [%{&ff}\|%Y]\ [%b]\ [%p%%\ r%l,c%v]\ [b%n]
+" [[LEN=%L] ASC=\%03.3b]\ [HEX=\%02.2B]\ 
+:set laststatus=2
+:hi StatusLine gui=reverse
+
+"---------------------------------------------------------------------
+" Source - http://vim.wikia.com/wiki/Insert_current_date_or_time
+" A press F5 to insert date
+:nnoremap <F5> "=strftime("%a, %d %b %Y %X")<CR>P
+:inoremap <F5> <C-R>=strftime("%a, %d %b %Y %X")<CR>
+
+"---------------------------------------------------------------------
+" Abbreviations
+:iab in_dmmy  join(  ' ',  (  split(/\s+/,localtime().'')  )[2,1,4]  ); # dd mmm yyyy
+:iab in_is    is($got,$expected,$t_name);
+:cab ev e ~/_vimrc
+:cab sv w \| :so ~/_vimrc
+:cab rr :put=strftime(\"----\n# %a %d %b %Y %H:%M:%S #\n\n\n\n\") \| :15
+:cab ppc w \| !perl -c % <CR>
+:cab ppr w \| !perl % <CR>
+:cab ppp w \| !perl -S publish_post.pl %<CR>
+:cab nsub vimgrep /^sub / %
+:cab wl bufdo lcd %:h
+ 
+"---------------------------------------------------------------------
+" Final actions
+:source F:/APP/vim/vim73/macros/matchit.vim
+" Make :W work like save command, :w
+" http://stackoverflow.com/questions/3878692/aliasing-a-command-in-vim
+:command W w
+" Map Ctrl-C and Ctrl-V to Copy and Paste respectively
+" http://superuser.com/questions/61226/configure-vim-for-copy-and-paste-keyboard-shortcuts-from-system-buffer-in-ubuntu 
+vnoremap <C-C> "*y
+map <C-V> "*p
+
+" Disable backup and swaps
+set nobackup
+set noswapfile
+
+"-----------------------------------------------------------------------
+" WINDOWS ONLY
+
+" Press Ctrl-F5 to launch default action on visually selected text
+" http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line
+vnoremap <silent> <C-F5> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd /cstart <C-R><C-R>"<CR><CR>:let @"=old_reg<CR>
+

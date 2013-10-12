@@ -17,9 +17,9 @@ set autochdir
 :set guioptions-=m	" Remove menu bar
 
 " Set VIM position & size on screen
-:winpos 666 0
+" :winpos 666 0
 " :set lines=46 columns=185
-:set lines=46 columns=91
+" :set lines=46 columns=91
 
 " Set tab stops and indenting
 :set tabstop=4
